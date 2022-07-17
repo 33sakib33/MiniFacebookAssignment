@@ -15,7 +15,7 @@ let postSchema= new mongoose.Schema({
         required: 'password can\'t be empty'
     },
     dom: {
-        type: Date
+        type: Date 
     }
 });
 
