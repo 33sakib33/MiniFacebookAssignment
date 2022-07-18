@@ -10,6 +10,7 @@ router.post('/login',ctrlUser.authenticate,jwtHelper.verifyJwtToken,ctrlUser.use
 router.get('/userProfile',jwtHelper.verifyJwtToken,ctrlUser.userProfile);
 router.post('/status',ctrlUser.postStatus);
 router.get('/status',ctrlUser.getStatus);
+router.post('/story',imageHelper.generateUUID,imageHelper.uploadImageIDmongoDB,imageHelper.uploadImage);
 // router.post('/story',imageHelper.getStatus);
 
 
