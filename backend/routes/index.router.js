@@ -11,6 +11,7 @@ router.get('/userProfile',jwtHelper.verifyJwtToken,ctrlUser.userProfile);
 router.post('/status',ctrlUser.postStatus);
 router.get('/status',ctrlUser.getStatus);
 router.post('/story',imageHelper.generateUUID,imageHelper.uploadImageIDmongoDB,imageHelper.uploadImage);
+router.get('/story',imageHelper.getUuidForUser);
 // router.post('/story',imageHelper.getStatus);
 
 
