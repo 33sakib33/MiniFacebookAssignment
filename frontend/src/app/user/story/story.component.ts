@@ -45,5 +45,26 @@ export class StoryComponent implements OnInit {
   doSomething(){
     console.log("something");
   }
+  onFileSelected(event: any) {
+
+    this.file = event.target.files[0];
+
+    let reader = new FileReader();
+
+    if (this.file) {
+
+      const formData = new FormData();
+      formData.append('files', this.file, this.file.name);
+      formData.append('name', this.user.title);
+
+
+      this.userService.postStory(formData).subscribe((res) => {
+        if (res) {
+          console.log('Story Done');
+        }
+      })
+    }
+  
+  }
   
 }

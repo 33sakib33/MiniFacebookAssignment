@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
 import { userStatus } from 'src/app/shared/userStatus.model';
 import { userStory } from 'src/app/shared/userStory.model';
@@ -13,7 +14,7 @@ export class FeedComponent implements OnInit {
   posts:userStatus[]=[];
   newStatus: userStatus=new userStatus();
   stories: userStory[]= [];
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -49,5 +50,9 @@ export class FeedComponent implements OnInit {
   resetForm(){
     
     this.newStatus= new userStatus();
+  }
+  logout(){
+    this.userService.deleteToken();
+    this.router.navigate(['signin']);
   }
 }

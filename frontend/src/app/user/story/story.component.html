@@ -48,4 +48,14 @@
         </div>
     </div>
 </div>
+<div class="stories">
 
+    <div class="card bg-dark text-white mine">
+        <input type="file" id="storyUpload" accept="image/*" (change)="onFileSelected($event)" #file>
+        <div class="card-img" alt="..."></div>
+        <button class="btn card-img" (click)="file.click()">
+            <h5 class="card-title" style="color:#65b1f0;">Add Story</h5>
+        </button>
+
+    </div>
+</div>

@@ -21,6 +21,11 @@ export class UserService {
     password:""
   };
   loggedUser: LoggedUser= new LoggedUser();
+  storyHeader = new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+    'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+  });
 
   constructor(private http: HttpClient) { }
   postUser(){
@@ -90,7 +95,9 @@ export class UserService {
     return this.http.get<userStory[]>(environment.apiBaseUrl+'/story',{headers: header })
   }
   postStory(formData: any){
-    return this.http.post(environment.apiBaseUrl+'/story', formData);
+    console.log(formData);
+    return this.http.post(environment.apiBaseUrl+'/story', formData,{ headers: this.storyHeader });
   }
+
  
 }
