@@ -51,6 +51,7 @@ module.exports.getImage=(req,res,next)=>{
     })
 }
 module.exports.getUuidForUser=(req,res,next)=>{
+    console.log(req.headers['email']);
     Image.find({ email: { $ne: req.headers['email'] }},
     (err,imageList)=>{
         // if (!post) return res.status(404).json({ status: false, message: 'No post.' });
@@ -58,10 +59,12 @@ module.exports.getUuidForUser=(req,res,next)=>{
         console.log(req.headers['email']);
         if(!imageList)res.status(404).send("Not found");
         else {
-            req.body.imageList=imageList;
-            next();
+            for(let i in imageList)
+                imageList[i].uuid='http://192.168.0.102:9000/imagetest1/'+imageList[i].uuid;
+
+            res.status(200).send(imageList);
         }
-    }).sort({dom: -1});
+    }).sort({dom: -1}).limit(10);
 }
 module.exports.generateUUID=(req,res,next)=>{
     uid=uuidv4();

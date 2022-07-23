@@ -1,7 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { Injectable, ɵɵsetComponentScope } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { userStatus } from './userStatus.model';
 import { User } from './user.model';
+import { LoggedUser } from './loggedUser.model';
+import { userStory } from './userStory.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +20,14 @@ export class UserService {
     email:"",
     password:""
   };
+  loggedUser: LoggedUser= new LoggedUser();
+
   constructor(private http: HttpClient) { }
   postUser(){
     return this.http.post(environment.apiBaseUrl+'/register',this.newUser);
   }
   authUser(potentialUser: { email: string; password: string; }){
-    return this.http.post(environment.apiBaseUrl+'/authenticate',potentialUser);
+    return this.http.post(environment.apiBaseUrl+'/login',potentialUser);
   }
   loadUser(user:User){
     this.newUser=user;
@@ -30,21 +36,33 @@ export class UserService {
     this.potentialUser.email=user.email;
     this.potentialUser.password=user.password;
   }
+  setLoggedUser(name:string, email:string){
+    this.loggedUser.fullName=name;
+    this.loggedUser.email=email;
+  }
   setToken(token:any){
-    
-    localStorage.setItem('token',token);
+      this.setLoggedUser(token.fullName,token.email);
+      localStorage.setItem('token',token.token);
+      localStorage.setItem('tokenName',token.fullName);
+      localStorage.setItem('tokenEmail',token.email);
+
+  }
+  getLoggedUser(){
+    this.loggedUser.email=localStorage.getItem('tokenEmail');
+    this.loggedUser.fullName=localStorage.getItem('tokenName');
+    return this.loggedUser;
   }
   deleteToken(){
-    localStorage.removeItem('token');
+     localStorage.removeItem('token');
+     localStorage.removeItem('tokenName');
+     localStorage.removeItem('tokenEmail');
   }
   getUserPayload(){
     let token= localStorage.getItem('token');
+    
     if(token){
-      console.log(token);
-      let payLoad: string = token.split('.')[1];
-      console.log(payLoad);
-      console.log("ekhane")
-      return null;
+      let payLoad: string = atob(token.split('.')[1]);
+      return JSON.parse(payLoad);
     }
     else{
       return null;
@@ -53,10 +71,26 @@ export class UserService {
   isLoggedIn(){
     let userPayload= this.getUserPayload();
     if(userPayload){
-      return null;
-      // return userPayload.exp>Date.now()/1000;
+      return userPayload.exp > Date.now() / 1000;
     }
     else return false;
   }
-
+  getUserPosts(): Observable<userStatus[]>{
+    const toAdd :any = {'email' : this.loggedUser.email};
+    let header = new HttpHeaders(toAdd);
+    return this.http.get<userStatus[]>(environment.apiBaseUrl+'/status',{headers: header })
+  }
+  postStatus(newStatus: userStatus){
+    console.log(newStatus)
+    return this.http.post(environment.apiBaseUrl+'/status',newStatus);
+  }
+  getStories(email:string):Observable<userStory[]>{
+    const toAdd :any = {'email' : email};
+    let header = new HttpHeaders(toAdd);
+    return this.http.get<userStory[]>(environment.apiBaseUrl+'/story',{headers: header })
+  }
+  postStory(formData: any){
+    return this.http.post(environment.apiBaseUrl+'/story', formData);
+  }
+ 
 }

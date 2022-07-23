@@ -130,7 +130,38 @@ img.single-story-bg {
 }
 
 
-
+.idiv {
+    position: relative;
+    border: 1px solid red;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+ }
+ 
+ .file_upload {
+    opacity: 0.0;
+ 
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+ 
+    /* IE 5-7 */
+    filter: alpha(opacity=0);
+  
+    /* Netscape or and older firefox browsers */
+    -moz-opacity: 0.0;
+ 
+    /* older Safari browsers */
+    -khtml-opacity: 0.0;
+ 
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height:100%;
+ }
 
 
 

@@ -9,7 +9,9 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { FeedComponent } from './user/feed/feed.component';
 import { StoryComponent } from './user/story/story.component';
-
+import { AuthGuard } from './auth/auth.guard';
+import { UserService } from './shared/user.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { StoryComponent } from './user/story/story.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthGuard,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
