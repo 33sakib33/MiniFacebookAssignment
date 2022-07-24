@@ -65,7 +65,7 @@ module.exports.getStatus=(req,res,next)=>{
             if(!post)res.status(404).send("Not found");
             else res.status(200).send(post);
         }
-    ).sort({dom: -1});
+    ).sort({dom: -1}).limit(10);
 }
 module.exports.postStatus=(req,res,next)=>{
     const post=new Post();

@@ -1,8 +1,8 @@
 
 {
-    "endPoint": "http://192.168.0.101",
-    "port": 9000,
+    "endPoint": "10.100.104.12",
+    "port": 42039,
     "useSSL": true,
-    "accessKey": "Q3AM3UQ867SPQQA43P2F",
-    "secretKey": "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+    "accessKey": "oem9oNOVnUJNexuH",
+    "secretKey": "S996ORLUGVttQM0wbgFOmQ4FzivrXQNP"
 }

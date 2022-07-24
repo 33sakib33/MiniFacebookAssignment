@@ -10,15 +10,14 @@ const Image=mongoose.model('images');
 // Instantiate the minio client with the endpoint
 // and access keys as shown below.
 const minioClient = new Minio.Client({
-    endPoint: '192.168.0.102',
+    endPoint: '10.100.104.12',
     port: 9000,
     useSSL: false,
-    accessKey: 'dqmw3hkUmQBZuGZk',
-    secretKey: 'XiykP4IiGNrOhoaqXmcBOsEv2hpcN9MP'
+    accessKey: 'oem9oNOVnUJNexuH',
+    secretKey: 'S996ORLUGVttQM0wbgFOmQ4FzivrXQNP'
 });
 
 // File that needs to be uploaded.
-let file = "controllers//origami.png"
 
 // Make a bucket called europetrip.
 minioClient.bucketExists('imagetest1', function(err, exists) {
@@ -60,7 +59,7 @@ module.exports.getUuidForUser=(req,res,next)=>{
         if(!imageList)res.status(404).send("Not found");
         else {
             for(let i in imageList)
-                imageList[i].uuid='http://192.168.0.102:9000/imagetest1/'+imageList[i].uuid;
+                imageList[i].uuid='http://10.100.104.12:9000/imagetest1/'+imageList[i].uuid;
 
             res.status(200).send(imageList);
         }
@@ -69,10 +68,12 @@ module.exports.getUuidForUser=(req,res,next)=>{
 module.exports.generateUUID=(req,res,next)=>{
     uid=uuidv4();
     req.body.uuid=uid;
+    console.log("image eikhane ashse");
+    console.log(req);
     next();
 }
 module.exports.uploadImage=(req,res,next)=>{
-    minioClient.fPutObject('imagetest1', req.body.uuid, req.body.path, function(err, etag) {
+    minioClient.fPutObject('imagetest1', req.body.uuid, req.file.path, function(err, etag) {
               
               if (err) res.send("hoy nai");
               else res.send(req.body.uuid);
@@ -80,10 +81,10 @@ module.exports.uploadImage=(req,res,next)=>{
 }
 module.exports.uploadImageIDmongoDB=(req,res,next)=>{
     image1= new Image();
-    image1.fullName=req.body.fullName;
+    image1.fullName=req.body.name;
     image1.email=req.body.email;
     image1.uuid=req.body.uuid;
-    image1.path=req.body.path;
+    image1.path=req.file.path;
     image1.dom= new Date();
     image1.save((err,doc)=>{
         if(!err){

@@ -4,9 +4,8 @@ import { UserService } from 'src/app/shared/user.service';
 import { userStory } from 'src/app/shared/userStory.model';
 import { environment } from 'src/environments/environment';
 import {MatIconModule} from '@angular/material/icon';
-class ImageSnippet {
-  constructor(public src: string, public file: File) {}
-}
+import { FileItem, FileUploader, ParsedResponseHeaders } from 'ng2-file-upload';
+
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
@@ -17,12 +16,33 @@ export class StoryComponent implements OnInit {
   stories: userStory[]=[];
   file:any;
   fileName = '';
+  public uploader: FileUploader = new FileUploader({
+    url: "http://localhost:3000/api/story",
+    itemAlias: 'image',
+    additionalParameter: {
+      email:this.userService.getLoggedUser().email,
+      name:this.userService.getLoggedUser().fullName
+    }
+ 
+  });
   constructor(private userService: UserService) { }
   ngOnInit(): void {
     this.setName();
     console.log(this.user.email);
     this.getStoriesOfFriends(this.user.email);
-   
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
+
+    this.uploader.onCompleteItem = () => { };
+
+    this.uploader.onSuccessItem = () => { };
+  }
+  onUpload() {
+    console.log("ekhane");
+    console.log(this.user.title);
+  
+    this.uploader.uploadAll();
   }
   setName(){
     this.user.title=this.userService.getLoggedUser().fullName;
@@ -56,7 +76,7 @@ export class StoryComponent implements OnInit {
       const formData = new FormData();
       formData.append('files', this.file, this.file.name);
       formData.append('name', this.user.title);
-
+      formData.append('email', this.user.email);
 
       this.userService.postStory(formData).subscribe((res) => {
         if (res) {

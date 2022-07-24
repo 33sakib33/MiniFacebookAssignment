@@ -14,16 +14,18 @@
                 <div class="widget-content widget-content-area">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div id="content_1" class="tabcontent story-area"> 
+                            <div id="content_1" class="tabcontent story-area">
                                 <div class="story-container-1">
-                                    <div  class="single-create-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="single-create-story-bg">
+                                    <div class="single-create-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                            class="single-create-story-bg">
                                         <div class="create-story-author">
                                             <i class="fa fa-plus-circle fa-2x text-info"></i>
                                             <p>Create a story</p>
                                         </div>
                                     </div>
-                                    <div class="single-story" *ngFor="let story of stories; index as i; first as isFirst">
+                                    <div class="single-story"
+                                        *ngFor="let story of stories; index as i; first as isFirst">
                                         <img [src]="story.uuid" class="single-story-bg">
                                         <div class="story-author">
                                             <!-- <img src="https://bootdey.com/img/Content/avatar/avatar2.png"> -->
@@ -38,7 +40,7 @@
                                             
                                         </div>
                                     </div> -->
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -50,12 +52,19 @@
 </div>
 <div class="stories">
 
-    <div class="card bg-dark text-white mine">
-        <input type="file" id="storyUpload" accept="image/*" (change)="onFileSelected($event)" #file>
+    <!-- <div class="card bg-dark text-white mine">
+        <input type="file" id="storyUpload" accept="image/*" ng2FileSelect [uploader]="uploader"
+            (change)="onFileSelected($event)" #file>
         <div class="card-img" alt="..."></div>
         <button class="btn card-img" (click)="file.click()">
             <h5 class="card-title" style="color:#65b1f0;">Add Story</h5>
         </button>
 
-    </div>
+    </div> -->
+
+    <input style=" display: none" type="file" name="image" ng2FileSelect [uploader]="uploader"
+        accept="image/x-png,image/gif,image/jpeg" #fileInput>
+    <button class="btn btn-primary custom" (click)="fileInput.click()">Upload a story</button>
+    <button class="btn btn-primary custom" type="button" (click)="onUpload()"
+        [disabled]="!uploader.getNotUploadedItems().length">Confirm</button>
 </div>
