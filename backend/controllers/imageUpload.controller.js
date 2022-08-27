@@ -10,11 +10,11 @@ const Image=mongoose.model('images');
 // Instantiate the minio client with the endpoint
 // and access keys as shown below.
 const minioClient = new Minio.Client({
-    endPoint: '10.100.104.12',
+    endPoint: '192.168.0.102',
     port: 9000,
     useSSL: false,
-    accessKey: 'oem9oNOVnUJNexuH',
-    secretKey: 'S996ORLUGVttQM0wbgFOmQ4FzivrXQNP'
+    accessKey: 'KqQ943vwpAZyUMd5',
+    secretKey: 'dstkx75aAWfWIhbcnivvXeUbK2jv9v7r'
 });
 
 // File that needs to be uploaded.

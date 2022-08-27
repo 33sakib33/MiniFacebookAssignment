@@ -29,10 +29,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   postUser(){
-    return this.http.post(environment.apiBaseUrl+'/register',this.newUser);
+    return this.http.post(environment.apiBaseUrl+'/authenticate/register',this.newUser);
   }
   authUser(potentialUser: { email: string; password: string; }){
-    return this.http.post(environment.apiBaseUrl+'/login',potentialUser);
+    return this.http.post(environment.apiBaseUrl+'/authenticate/login',potentialUser);
   }
   loadUser(user:User){
     this.newUser=user;

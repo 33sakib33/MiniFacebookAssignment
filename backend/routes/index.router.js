@@ -4,6 +4,7 @@ const router = express();
 const ctrlUser = require('../controllers/user.controller');
 const jwtHelper = require('../config/jwtHelper');
 const imageHelper = require('../controllers/imageUpload.controller');
+const statusHelper = require('../controllers/status.controller');
 
 const multer = require('multer');
 
@@ -23,8 +24,8 @@ let upload = multer({
 router.post('/register', ctrlUser.register);
 router.post('/login', ctrlUser.authenticate, jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 router.get('/userProfile', jwtHelper.verifyJwtToken, ctrlUser.userProfile);
-router.post('/status', ctrlUser.postStatus);
-router.get('/status', ctrlUser.getStatus);
+router.post('/status', statusHelper.postStatus);
+router.get('/status', statusHelper.getStatus);
 router.post('/story', upload.single("image"), imageHelper.generateUUID, imageHelper.uploadImageIDmongoDB, imageHelper.uploadImage);
 router.get('/story', imageHelper.getUuidForUser);
 // router.post('/story',imageHelper.getStatus);

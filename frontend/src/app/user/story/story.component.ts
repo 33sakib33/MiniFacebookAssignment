@@ -17,7 +17,7 @@ export class StoryComponent implements OnInit {
   file:any;
   fileName = '';
   public uploader: FileUploader = new FileUploader({
-    url: "http://localhost:3000/api/story",
+    url: "http://localhost:9001/story",
     itemAlias: 'image',
     additionalParameter: {
       email:this.userService.getLoggedUser().email,
