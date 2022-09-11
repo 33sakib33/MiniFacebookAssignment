@@ -1,7 +1,7 @@
 {
     "development":{
         "PORT": 4000,
-        "MONGODB_URI": "mongodb://localhost:27017/MiniFacebookUserDatabase",
+        "MONGODB_URI": "mongodb://db-account:27017/MiniFacebookUserDatabase",
         "JWT_SECRET" : "SECRET#123",
         "JWT_EXP": "2m"
     },
