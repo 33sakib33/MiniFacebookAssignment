@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:3334',
-  minioApiUrl: 'http://192.168.0.102:9000',
+  minioApiUrl: 'http://storyobjectdb:9000',
   minioImageBucket: 'imagetest1'
 };
 
