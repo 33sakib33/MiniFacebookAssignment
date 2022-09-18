@@ -29,10 +29,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   postUser(){
-    return this.http.post(environment.apiBaseUrl+'/authenticate/register',this.newUser);
+    return this.http.post("http://localhost:3334"+'/authenticate/register',this.newUser);
   }
   authUser(potentialUser: { email: string; password: string; }){
-    return this.http.post(environment.apiBaseUrl+'/authenticate/login',potentialUser);
+    return this.http.post("http://localhost:3334"+'/authenticate/login',potentialUser);
   }
   loadUser(user:User){
     this.newUser=user;
@@ -83,20 +83,20 @@ export class UserService {
   getUserPosts(): Observable<userStatus[]>{
     const toAdd :any = {'email' : this.loggedUser.email};
     let header = new HttpHeaders(toAdd);
-    return this.http.get<userStatus[]>(environment.apiBaseUrl+'/status',{headers: header })
+    return this.http.get<userStatus[]>("http://localhost:3334"+'/status',{headers: header })
   }
   postStatus(newStatus: userStatus){
     console.log(newStatus)
-    return this.http.post(environment.apiBaseUrl+'/status',newStatus);
+    return this.http.post("http://localhost:3334"+'/status',newStatus);
   }
   getStories(email:string):Observable<userStory[]>{
     const toAdd :any = {'email' : email};
     let header = new HttpHeaders(toAdd);
-    return this.http.get<userStory[]>(environment.apiBaseUrl+'/story',{headers: header })
+    return this.http.get<userStory[]>("http://localhost:3334"+'/story',{headers: header })
   }
   postStory(formData: any){
     console.log(formData);
-    return this.http.post(environment.apiBaseUrl+'/story', formData,{ headers: this.storyHeader });
+    return this.http.post("http://localhost:3334"+'/story', formData,{ headers: this.storyHeader });
   }
 
  

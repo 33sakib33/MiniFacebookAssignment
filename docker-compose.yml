@@ -1,7 +1,8 @@
 version: "3"
 services:
   nginx:
-    image: nginx
+    image: 33sakib33/nginx
+    build: .
     restart: unless-stopped
     ports:
       - 3334:3334
@@ -12,14 +13,14 @@ services:
       - status-service
       - story-service
 
-  frontend:
-      container_name: frontend
-      build: ./frontend
-      restart: unless-stopped
-      ports:
-           - 4200:4200
-      depends_on:
-          - nginx
+  # frontend:
+  #     container_name: frontend
+  #     build: ./frontend
+  #     restart: unless-stopped
+  #     ports:
+  #          - 4200:4200
+  #     depends_on:
+  #         - nginx
 
   db-account:
     image: mongo:4.0-xenial
@@ -86,6 +87,7 @@ services:
   #     "
  
   account-service:
+    image: 33sakib33/account-service
     build: ./userMS
     restart: unless-stopped
 
@@ -95,6 +97,7 @@ services:
       DB_URL: mongodb://db-account:27017/MiniFacebookUserDatabase
 
   status-service:
+    image: 33sakib33/status-service
     build: ./statusMS
     restart: unless-stopped
 
@@ -105,6 +108,7 @@ services:
       DB_URL: mongodb://db-status:27017/MiniFacebookStatus
   
   story-service:
+    image: 33sakib33/story-service
     build: ./storyMS
     restart: unless-stopped
 
