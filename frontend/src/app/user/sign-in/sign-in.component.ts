@@ -40,5 +40,7 @@ export class SignInComponent implements OnInit {
     };
     this.serverErrorMessages = '';
   }
-
+  goSignUp():void{
+    this.router.navigate(["signup"]);
+  }
 }
